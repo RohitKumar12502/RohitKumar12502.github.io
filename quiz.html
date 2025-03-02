@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="relative z-10">
+        <nav class="mx-auto flex items-center p-4 justify-between bg-blue-400">
+            <a href="index.html" class="flex items-center font-bold text-[20px] font-serif">
+                <img src="logo.png" alt="logo" class="h-[70px] w-auto">
+                Quiz Game
+            </a>
+            
+    
+            <button id="toggleSidebar" class="md:hidden text-white text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+    
+    
+            <ul class="hidden md:flex text-left text-[20px] gap-[10px]">
+                <li><a href="index.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Home</a></li>
+                <li><a href="#" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Quiz</a></li>
+                <li><a href="About_us.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">About us</a></li>
+                <li><a href="Contact_us.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Contact us</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-blue-700 text-white transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden z-20">
+        <div class="p-4 text-xl font-bold">Menu</div>
+        <ul class="mt-4">
+            <li class="p-3 hover:bg-blue-600"><a href="index.html">Home</a></li>
+            <li class="p-3 hover:bg-blue-600"><a href="#">Quiz</a></li>
+            <li class="p-3 hover:bg-blue-600"><a href="About_us.html">About us</a></li>
+            <li class="p-3 hover:bg-blue-600"><a href="Contact_us.html">Contact us</a></li>
+        </ul>
+        <button id="closeSidebar" class="absolute top-4 right-4 text-xl">✖</button>
+    </div>
+    <section class="flex justify-center bg-gray-200 items-center min-h-screen rounded-lg">
+        <div id="courseSelection" class="w-full max-w-lg p-8 shadow-lg rounded-lg bg-white">
+            <h2 class="w-full max-w-lg py-2 px-4 text-center text-[25px] font-bold">Select a course</h2>
+                <select class="w-full max-w-lg py-3 px-4 border-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="" disabled selected>Select a Course</option>
+                    <option value="html">HTML Basis</option>
+                    <option value="css">CSS Basis</option>
+                    <option value="js">Javascript Basis</option>
+                </select>
+                <button id="startQuiz" type="button" class="w-full max-w-lg py-2 px-4 mt-4 shahdow-lg rounded-lg bg-blue-500">Start Quiz</button>
+        </div>
+        <div id="quizContainer" class="w-full max-lg-py p-8 shadow-lg rounded-lg bg-white mt-6 hidden">
+            <h2 id="question" class="text-[20px] font-bold"></h2>
+            <div id="options" class="mt-4 space-y-2"></div>
+            <p id="timer" class="mt-2 text-red-500 font-semibold">Time Left: 20s</p>
+            <div class="mt-4 flex justify-between">
+                <button id="prev" class="text-[20px] py-2 px-4 bg-gray-400 rounded-lg hidden">Previous</button>
+                <button id="next" class="text-[20px] py-2 px-4 bg-blue-400 rounded-lg hidden">Next</button>
+            </div>
+            <button id="submit" class="w-full max-w-lg py-2 px-4 mt-4 rounded-lg bg-blue-500 hidden" disabled>
+                Submit Quiz
+            </button>
+            <p id="quizResult" class="mt-4 font-semibold bg-blue-400 hidden"></p>
+        </div>
+    </section>
+    <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleSidebar = document.getElementById("toggleSidebar");
+        const closeSidebar = document.getElementById("closeSidebar");
+    
+        toggleSidebar.addEventListener("click", () => {
+            sidebar.classList.toggle("-translate-x-full");
+        });
+    
+        closeSidebar.addEventListener("click", () => {
+            sidebar.classList.add("-translate-x-full");
+        });
+    </script>
+    <script>
+        const questions = [
+            { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "Hyperlinks and Text Markup Language", "Home Tool Markup Language"], answer: 0 },
+            { question: "What is the correct CSS syntax to change font color to blue?", options: ["color: blue;", "text-color: blue;", "font-color: blue;"], answer: 0 },
+            { question: "Which JavaScript keyword is used to declare a variable?", options: ["var", "let", "Both"], answer: 2 },
+            { question: "What is the purpose of a `<head>` tag in HTML?", options: ["To store metadata", "To define the main content", "To display a heading"], answer: 0 },
+            { question: "Which property is used to make a webpage responsive?", options: ["media queries", "flexbox", "grid"], answer: 0 }
+        ];
+        
+        let currentQuestionIndex = 0;
+        let selectedAnswers = {};
+        let lockedQuestions = new Set();
+        let timer;
+        
+        document.getElementById('courseSelection').addEventListener('change', function() {
+            document.getElementById('startQuiz').disabled = false;
+        });
+        
+        document.getElementById('startQuiz').addEventListener('click', function() {
+            document.getElementById('courseSelection').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            loadQuestion();
+        });
+        
+        function loadQuestion() {
+            clearInterval(timer); // Clear any previous timer
+            const questionData = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = questionData.question;
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+        
+            if (lockedQuestions.has(currentQuestionIndex)) {
+                optionsContainer.innerHTML = '<p class="text-red-500">Question Locked</p>';
+            } else {
+                questionData.options.forEach((option, index) => {
+                    const btn = document.createElement('button');
+                    btn.textContent = option;
+                    btn.classList.add('w-full', 'p-2', 'border', 'rounded-lg', 'hover:bg-gray-200');
+                    
+                    if (selectedAnswers[currentQuestionIndex] === index) {
+                        btn.classList.add('bg-blue-300');
+                    }
+        
+                    btn.onclick = () => {
+                        selectedAnswers[currentQuestionIndex] = index;
+                        clearInterval(timer);
+                        startTimer();
+                        loadQuestion();
+                        updateNavigation();
+                    };
+        
+                    optionsContainer.appendChild(btn);
+                });
+        
+                startTimer();
+            }
+            updateNavigation();
+        }
+                
+        
+        function startTimer() {
+            clearInterval(timer);
+            let timeLeft = 20;
+            document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+        
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = `Time Left: ${timeLeft}s`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.getElementById('timer').textContent = "Time Up!";
+                    lockQuestion();
+                }
+            }, 1000);
+        }
+                
+        
+        function lockQuestion() {
+            lockedQuestions.add(currentQuestionIndex);
+            loadQuestion();
+        }
+        
+        function updateNavigation() {
+            document.getElementById('prev').classList.toggle('hidden', currentQuestionIndex === 0);
+            document.getElementById('next').classList.toggle('hidden', currentQuestionIndex === questions.length - 1);
+        
+            const submitBtn = document.getElementById('submit');
+            
+            if (currentQuestionIndex === questions.length - 1) {
+                submitBtn.classList.remove('hidden');
+            } else {
+                submitBtn.classList.add('hidden');
+            }
+        
+            submitBtn.disabled = Object.keys(selectedAnswers).length + lockedQuestions.size !== questions.length;
+        }        
+        
+        document.getElementById('prev').addEventListener('click', function() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        });
+        
+        document.getElementById('next').addEventListener('click', function() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        });
+        
+        document.getElementById('submit').addEventListener('click', function() {
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (selectedAnswers[i] === q.answer) {
+                    score++;
+                }
+            });
+            document.getElementById('quizContainer').innerHTML = `<h2 class='text-xl font-bold'>Quiz Completed!</h2>
+                <p class='mt-4'>Your Score: ${score} / ${questions.length}</p>`;
+        });
+    </script>
+</body>
+</html>
