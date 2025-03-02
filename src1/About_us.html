@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./output.css" rel="stylesheet">
+  <title>About us Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+        <header class="relative z-10">
+            <nav class="mx-auto flex items-center p-4 justify-between bg-blue-400">
+                <a href="index.html" class="flex items-center font-bold text-[20px] font-serif">
+                    <img src="logo.png" alt="logo" class="h-[70px] w-auto">
+                    Quiz Game
+                </a>
+                
+        
+                <button id="toggleSidebar" class="md:hidden text-white text-2xl">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+        
+        
+                <ul class="hidden md:flex text-left text-[20px] gap-[10px]">
+                    <li><a href="index.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Home</a></li>
+                    <li><a href="quiz.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Quiz</a></li>
+                    <li><a href="About_us.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">About us</a></li>
+                    <li><a href="Contact_us.html" class="text-white capitalize font-bold p-[20px] hover:text-gray-300">Contact us</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-blue-700 text-white transform -translate-x-full transition-transform duration-300 ease-in-out md:hidden z-20">
+            <div class="p-4 text-xl font-bold">Menu</div>
+            <ul class="mt-4">
+                <li class="p-3 hover:bg-blue-600"><a href="index.html">Home</a></li>
+                <li class="p-3 hover:bg-blue-600"><a href="#">Quiz</a></li>
+                <li class="p-3 hover:bg-blue-600"><a href="About_us.html">About us</a></li>
+                <li class="p-3 hover:bg-blue-600"><a href="Contact_us.html">Contact us</a></li>
+            </ul>
+            <button id="closeSidebar" class="absolute top-4 right-4 text-xl">✖</button>
+        </div>
+        
+
+       <section class="flex flex-wrap bg-gray-100  md:p-[30px_150px] sm:p-[10px_50px] font-serif" >
+        <div class="max-w-[100%] mx-auto md:px-[20px] px-[50px] my-10">
+            <h1 class=" text-[30px] font-bold lg:text-center sm:text-start">
+                About the Quiz
+            </h1>
+            <p class="text-[18px]">
+                Quizzes are an engaging way to test knowledge, challenge the mind, and have fun while learning. They cover a wide range of topics, from general knowledge and academics to entertainment, science, and technology. Whether you're a student preparing for exams, a trivia enthusiast, or someone looking to improve your skills, quizzes provide an interactive and exciting learning experience.
+            </p>
+
+            <h3 class=" text-[25px] font-bold-[40px] py-[50px] ">
+                Why Take a Quiz?
+            </h3>
+            <ul class="my-[-35px]">
+                <li class="flex sm:flex-wrap text-start sm:space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Test Your Knowledge:
+                    </h4>
+                    <span class="text-[18px]"> Assess your understanding of various subjects.</span>
+                </li>
+                <li class="flex sm:flex-wrap text-start sm:space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Learn in a Fun Way:
+                    </h4>
+                    <span class="text-[18px]"> Gain new information while enjoying the challenge..</span>
+                </li>
+                <li class="flex sm:flex-wrap text-start sm:space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Improve Retention
+                    </h4>
+                    <span class="text-[18px]"> Active participation helps with better memory recall.</span>
+                </li>
+                <li class="flex sm:flex-wrap text-start sm:space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Challenge Yourself & Compete:
+                    </h4>
+                    <span class="text-[18px]"> Compare scores with friends and improve over time.</span>
+                </li>
+            </ul>
+18           <h3 class=" text-[35px] font-bold-[40px] py-[50px] ">
+                How it works    
+            </h3>
+            <ol class="my-[-30px]">
+                <li class="flex sm:flex-wrap text-start space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Choose a Category –
+                    </h4>
+                    <p class="text-[18px]"> Select from different topics like Science, History, Technology, etc.</p>
+                </li>
+                <li class="flex sm:flex-wrap text-start space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Answer Questions –
+                    </h4>
+                    <p class="text-[18px]"> Each quiz consists of multiple-choice, true/false, or fill-in-the-blank questions.</p>
+                </li>
+                <li class="flex sm:flex-wrap text-start space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Get Instant Feedback –
+                    </h4>
+                    <p class="text-[18px]"> Receive results and explanations after completing the quiz.</p>
+                </li>
+                <li class="flex sm:flex-wrap text-start space-x-2 ">
+                    <h4 class="text-[20px] font-bold">
+                        Track Your Progress –
+                    </h4>
+                    <p class="text-[18px]"> Keep a record of your scores and aim for improvement.</p>
+                </li>
+            </ol>
+        </div>      
+    </section>
+
+       <footer class="flex flex-col  bg-blue-400  justify-center items-center text-center">
+        <div >
+            <ul class="flex justify-center  text-center text-[15px] gap-[10px]  group hover:translate-[-10px] ">
+                  <li>
+                      <a href='index.html' alt="" class="text-[white] capitalize font-bold p-[20px] hover:text-yellow-300">
+                          Home
+                      </a>
+                  </li>
+                  <li>
+                      <a href='quiz.html' class="text-white capitalize font-bold p-[20px] hover:text-yellow-300">
+                          Quiz
+                      </a>
+                  </li>
+                  <li>
+                      <a href='About_us.html' class="text-white capitalize font-bold p-[20px] hover:text-yellow-300">
+                          About us
+                      </a>
+                  </li>
+                  <li>
+                      <a href='Contact_us.html' class="text-white capitalize font-bold p-[20px] hover:text-yellow-300">
+                          Conatat us
+                      </a>
+                  </li>
+              </ul>
+            </div>
+              <div class="justify-center">
+                <span class="px-[15px]">CopyRight &copy;</span>
+                <span>Lean House sp. z o.o.</span>
+            </div>
+       </footer>
+
+       <script>
+        const sidebar = document.getElementById("sidebar");
+        const toggleSidebar = document.getElementById("toggleSidebar");
+        const closeSidebar = document.getElementById("closeSidebar");
+    
+        toggleSidebar.addEventListener("click", () => {
+            sidebar.classList.toggle("-translate-x-full");
+        });
+    
+        closeSidebar.addEventListener("click", () => {
+            sidebar.classList.add("-translate-x-full");
+        });
+    </script>
+</body>
+</html>
